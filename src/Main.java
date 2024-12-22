@@ -24,12 +24,6 @@ public class Main {
                 |_| |_| |_|\\___|_| |_|\\__,_|
                 """);
 
-        for(Veiculo c : cars){
-            c.standby();
-        }
-
-        System.out.println("\n\n");
-
         System.out.println("[1] - Começar partida");
         System.out.println("[2] - Ver placar");
         System.out.println("[3] - Gerenciar carros");

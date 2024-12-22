@@ -10,4 +10,7 @@ projeto em desenvolvimento
 ### 2. Abrindo arquivo
 - Após baixar, você pode extrair os arquivos para um local do seu agrado.
 - Ao entrar dentro da pasta do projeto, você verá algo parecido com a foto abaixo
-![](documents/img/)
+
+![imagem da estrutura de arquivos](documents/img/arquivos1.png)
+
+- acesse a pasta src

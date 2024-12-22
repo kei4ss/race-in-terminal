@@ -1,10 +1,15 @@
+import veiculos.Carro;
+import veiculos.Motocicleta;
+import veiculos.Train;
+import veiculos.Veiculo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-    static List<Carro> cars = new ArrayList<>();
+    static List<Veiculo> cars = new ArrayList<>();
     static LimparTela limparTela = new LimparTela();
     static Scanner leia = new Scanner(System.in);
 
@@ -12,7 +17,19 @@ public class Main {
         int userOption;
 
         limparTela.clean();
-        System.out.println("<<<<< MENU >>>>>");
+        System.out.println("""
+                 _ __ ___   ___ _ __  _   _\s
+                | '_ ` _ \\ / _ \\ '_ \\| | | |
+                | | | | | |  __/ | | | |_| |
+                |_| |_| |_|\\___|_| |_|\\__,_|
+                """);
+
+        for(Veiculo c : cars){
+            c.standby();
+        }
+
+        System.out.println("\n\n");
+
         System.out.println("[1] - Começar partida");
         System.out.println("[2] - Ver placar");
         System.out.println("[3] - Gerenciar carros");
@@ -50,7 +67,7 @@ public class Main {
         // mostra o frame inicial e garante que todos os carros tenham sua posição igual a 0
         // essa garantia é feita pela função .reset()
         limparTela.clean();
-        for(Carro car : cars){
+        for(Veiculo car : cars){
             car.reset();
             car.desenhar();
         }
@@ -59,7 +76,7 @@ public class Main {
         for(int i = 0; i< 15; i++){
             pause(1);
             limparTela.clean();
-            for(Carro car : cars){
+            for(Veiculo car : cars){
                 car.avancar();
                 car.desenhar();
             }
@@ -70,9 +87,9 @@ public class Main {
         // - Se o carro atual percorreu uma distância maior que a maior registrada até agora (ultimaPontuacao),
         //   atualizamos a maior distância e limpamos a lista de vencedores para incluir apenas esse carro.
         // - Se a distância do carro atual for igual à maior registrada, adicionamos o carro à lista de vencedores.
-        List<Carro> vencedor = new ArrayList<>();
+        List<Veiculo> vencedor = new ArrayList<>();
         int ultimaPontuacao = 0;
-        for(Carro car : cars){
+        for(Veiculo car : cars){
             if(ultimaPontuacao < car.getDistancia()){
                 ultimaPontuacao = car.getDistancia();
                 vencedor.clear();
@@ -83,7 +100,7 @@ public class Main {
         }
 
         // Aumenta a quantidade de vítorias registradas para os carros que venceram a corrida.
-        for (Carro carro : vencedor){
+        for (Veiculo carro : vencedor){
             carro.incrementarVitorias();
         }
 
@@ -91,14 +108,14 @@ public class Main {
         System.out.println("\n");
         String mensagem = vencedor.size() > 1 ? "OS VENCEDORES SÃO" : "O VENCEDOR É";
         System.out.printf(" ~~~~ %s: ", mensagem);
-        for (Carro c : vencedor){
+        for (Veiculo c : vencedor){
             System.out.printf("%s ", c.getNome());
         }
         System.out.println(" ~~~~ \n\n");
 
         // Mostra quantos metros cada carro fez
         System.out.println("_".repeat(10));
-        for(Carro car : cars){
+        for(Veiculo car : cars){
             System.out.printf("| %s : %d metros \n", car.getNome(), car.getDistancia());
         }
 
@@ -118,7 +135,7 @@ public class Main {
  
     public static void standbyCars(){
 
-        for(Carro car : cars){
+        for(Veiculo car : cars){
             car.standby();
             System.out.println("/".repeat(20));
         }
@@ -128,6 +145,8 @@ public class Main {
 
         cars.add(new Carro("Relampago Marquinhos"));
         cars.add(new Carro("Amilton Sena"));
+        cars.add(new Motocicleta("Motoqueiro fantasma"));
+        cars.add(new Train("esse tren"));
 
         menu();
     }

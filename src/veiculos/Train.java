@@ -14,7 +14,7 @@ public class Train extends Veiculo{
                 %s   |_ |_____|<
                 %s     @-@-@-oo\\
                 """, " ".repeat(distancia), " ".repeat(distancia), " ".repeat(distancia), " ".repeat(distancia));
-        System.out.print("-".repeat(70));
+        desenhePista();
         System.out.printf("  %s  \n", nome);
     }
 

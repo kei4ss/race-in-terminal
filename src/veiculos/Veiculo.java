@@ -1,6 +1,7 @@
 package veiculos;
 
 import java.util.Random;
+import enfeites.Utilidades;
 
 public class Veiculo {
     protected int distancia = 0;
@@ -8,6 +9,7 @@ public class Veiculo {
     protected Random gerador = new Random();
     protected int vitorias;
     protected final int VELOCIDADE = 5;
+    private Utilidades util = new Utilidades();
 
     public void desenhar(){};
 
@@ -36,4 +38,10 @@ public class Veiculo {
     public void incrementarVitorias(){
         vitorias++;
     }
+
+    protected void desenhePista(){
+        String seguimento = util.colorText("-", "white") + util.colorText("-", "gray");
+        System.out.print(seguimento.repeat(32));
+    }
+
 }

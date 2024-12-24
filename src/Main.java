@@ -1,28 +1,39 @@
+import enfeites.Utilidades;
 import veiculos.Carro;
 import veiculos.Motocicleta;
 import veiculos.Train;
 import veiculos.Veiculo;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Main {
 
-    static List<Veiculo> cars = new ArrayList<>();
+    static List<Veiculo> veiculosDaCorrida = new ArrayList<>();
     static LimparTela limparTela = new LimparTela();
     static Scanner leia = new Scanner(System.in);
+    static Utilidades util = new Utilidades();
+
+    static final String MENUTEXT = """
+            .___  ___.  _______ .__   __.  __    __\s
+            |   \\/   | |   ____||  \\ |  | |  |  |  |
+            |  \\  /  | |  |__   |   \\|  | |  |  |  |
+            |  |\\/|  | |   __|  |  . `  | |  |  |  |
+            |  |  |  | |  |____ |  |\\   | |  `--'  |
+            |__|  |__| |_______||__| \\__|  \\______/\s""";
 
     public static void menu(){
         int userOption;
+        String linhaDecoracao = "-".repeat(40);
 
         limparTela.clean();
-        System.out.println("""
-                 _ __ ___   ___ _ __  _   _\s
-                | '_ ` _ \\ / _ \\ '_ \\| | | |
-                | | | | | |  __/ | | | |_| |
-                |_| |_| |_|\\___|_| |_|\\__,_|
-                """);
+        System.out.println(util.colorText(linhaDecoracao, "yellow"));
+        System.out.println(util.colorText(MENUTEXT, "cyan"));
+        System.out.println(util.colorText(linhaDecoracao, "yellow"));
+
+        System.out.println(" ");
 
         System.out.println("[1] - Começar partida");
         System.out.println("[2] - Ver placar");
@@ -35,33 +46,63 @@ public class Main {
         switch (userOption) {
             case 1:
                 runGame();
+                menu();
                 break;
         
             case 2:
-                System.out.println("Ver placar");
+                showPlacar();
+                menu();
                 break;
             
             case 3:
                 System.out.println("abrir gerenciador de carros");
+                menu();
                 break;
             
             case 4:
                 leia.close();
                 System.out.println("Até a próxima!");
+                System.exit(0);
                 break;
 
             default:
+                System.out.println("Opção não listada");
                 menu();
                 break;
         }
     }
+
+
+    public static void showPlacar(){
+        limparTela.clean();
+        System.out.println("""
+                 ____  _                            _     \s
+                |  _ \\| | __ _  ___ __ _ _ __    __| | ___\s
+                | |_) | |/ _` |/ __/ _` | '__|  / _` |/ _ \\
+                |  __/| | (_| | (_| (_| | |    | (_| |  __/
+                |_|   |_|\\__,_|\\___\\__,_|_|     \\__,_|\\___|
+                __   _(_) |_ /_/  _ __(_) __ _ ___        \s
+                \\ \\ / / | __/ _ \\| '__| |/ _` / __|       \s
+                 \\ V /| | || (_) | |  | | (_| \\__ \\       \s
+                  \\_/ |_|\\__\\___/|_|  |_|\\__,_|___/ \s
+                """);
+
+        veiculosDaCorrida.sort((p1, p2) -> Integer.compare(p2.getVitorias(), p1.getVitorias()));
+
+        for(int i = 1; i <= veiculosDaCorrida.size(); i++){
+            System.out.printf("%d° - %s [%d vitórias] \n", i, veiculosDaCorrida.get(i-1).getNome(), veiculosDaCorrida.get(i-1).getVitorias());
+        }
+
+        leia.nextLine(); leia.nextLine();
+    }
+
 
     public static void runGame(){
 
         // mostra o frame inicial e garante que todos os carros tenham sua posição igual a 0
         // essa garantia é feita pela função .reset()
         limparTela.clean();
-        for(Veiculo car : cars){
+        for(Veiculo car : veiculosDaCorrida){
             car.reset();
             car.desenhar();
         }
@@ -70,7 +111,7 @@ public class Main {
         for(int i = 0; i< 15; i++){
             pause(1);
             limparTela.clean();
-            for(Veiculo car : cars){
+            for(Veiculo car : veiculosDaCorrida){
                 car.avancar();
                 car.desenhar();
             }
@@ -83,7 +124,7 @@ public class Main {
         // - Se a distância do carro atual for igual à maior registrada, adicionamos o carro à lista de vencedores.
         List<Veiculo> vencedor = new ArrayList<>();
         int ultimaPontuacao = 0;
-        for(Veiculo car : cars){
+        for(Veiculo car : veiculosDaCorrida){
             if(ultimaPontuacao < car.getDistancia()){
                 ultimaPontuacao = car.getDistancia();
                 vencedor.clear();
@@ -108,16 +149,20 @@ public class Main {
         System.out.println(" ~~~~ \n\n");
 
         // Mostra quantos metros cada carro fez
-        System.out.println("_".repeat(10));
-        for(Veiculo car : cars){
+        System.out.println(" " + "_".repeat(10));
+        System.out.println("|");
+        for(Veiculo car : veiculosDaCorrida){
             System.out.printf("| %s : %d metros \n", car.getNome(), car.getDistancia());
         }
+        System.out.print("|");
+        System.out.println("_".repeat(10));
 
         // Espera pela interação do usuário para poder voltar ao menu
         System.out.println("Aperte ENTER para voltar ao menu.");
         leia.nextLine(); leia.nextLine();
         menu();
     }
+
 
     public static void pause(int temp){
         try {
@@ -126,21 +171,23 @@ public class Main {
             System.out.println("A pausa foi interrompida!");
         }
     }
- 
+
+
     public static void standbyCars(){
 
-        for(Veiculo car : cars){
+        for(Veiculo car : veiculosDaCorrida){
             car.standby();
             System.out.println("/".repeat(20));
         }
     }
 
+
     public static void main(String[] args) {
 
-        cars.add(new Carro("Relampago Marquinhos"));
-        cars.add(new Carro("Amilton Sena"));
-        cars.add(new Motocicleta("Motoqueiro fantasma"));
-        cars.add(new Train("esse tren"));
+        veiculosDaCorrida.add(new Carro("Relampago Marquinhos"));
+        veiculosDaCorrida.add(new Carro("Amilton Sena"));
+        veiculosDaCorrida.add(new Motocicleta("Motoqueiro fantasma"));
+        veiculosDaCorrida.add(new Train("esse tren"));
 
         menu();
     }

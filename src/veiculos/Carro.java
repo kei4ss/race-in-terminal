@@ -14,7 +14,7 @@ public class Carro extends Veiculo{
                 %s|   _     _   |
                 %s '-(_)---(_)--'
                 """, " ".repeat(distancia), " ".repeat(distancia), " ".repeat(distancia), " ".repeat(distancia));
-        System.out.print("-".repeat(70));
+        desenhePista();
         System.out.printf("  %s  \n", nome);
     }
 

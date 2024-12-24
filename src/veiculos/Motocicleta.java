@@ -13,7 +13,7 @@ public class Motocicleta extends Veiculo{
                 %s      ::.,-c\\-.
                 %s      (_)=='(_)
                 """, " ".repeat(distancia), " ".repeat(distancia), " ".repeat(distancia));
-        System.out.print("-".repeat(70));
+        desenhePista();
         System.out.printf("  %s  \n", nome);
     }
 

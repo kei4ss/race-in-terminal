@@ -16,7 +16,12 @@ public class Main {
     static Scanner leia = new Scanner(System.in);
     static Utilidades util = new Utilidades();
 
-    static final String MENUTEXT = """
+    public static void menu(){
+        int userOption;
+        limparTela.clean();
+
+        String linhaDecoracao = "-".repeat(40);
+        final String MENUTEXT = """
             .___  ___.  _______ .__   __.  __    __\s
             |   \\/   | |   ____||  \\ |  | |  |  |  |
             |  \\  /  | |  |__   |   \\|  | |  |  |  |
@@ -24,23 +29,12 @@ public class Main {
             |  |  |  | |  |____ |  |\\   | |  `--'  |
             |__|  |__| |_______||__| \\__|  \\______/\s""";
 
-    public static void menu(){
-        int userOption;
-        String linhaDecoracao = "-".repeat(40);
-
-        limparTela.clean();
         System.out.println(util.colorText(linhaDecoracao, "yellow"));
         System.out.println(util.colorText(MENUTEXT, "cyan"));
         System.out.println(util.colorText(linhaDecoracao, "yellow"));
 
-        System.out.println(" ");
-
-        System.out.println("[1] - Começar partida");
-        System.out.println("[2] - Ver placar");
-        System.out.println("[3] - Gerenciar carros");
-        System.out.println("[4] - Sair ");
-
-        System.out.print("-> ");
+        String[] opcoes = {"Começar partida", "Ver placar", "Gerenciar carros", "sair"};
+        criarMenu(opcoes);
         userOption = leia.nextInt();
 
         switch (userOption) {
@@ -55,7 +49,7 @@ public class Main {
                 break;
             
             case 3:
-                System.out.println("abrir gerenciador de carros");
+                gerenciarVeiculo();
                 menu();
                 break;
             
@@ -75,7 +69,9 @@ public class Main {
 
     public static void showPlacar(){
         limparTela.clean();
-        System.out.println("""
+
+        String linhaDecoracao = "-".repeat(45);
+        final String PLACARTEXT = """
                  ____  _                            _     \s
                 |  _ \\| | __ _  ___ __ _ _ __    __| | ___\s
                 | |_) | |/ _` |/ __/ _` | '__|  / _` |/ _ \\
@@ -85,10 +81,15 @@ public class Main {
                 \\ \\ / / | __/ _ \\| '__| |/ _` / __|       \s
                  \\ V /| | || (_) | |  | | (_| \\__ \\       \s
                   \\_/ |_|\\__\\___/|_|  |_|\\__,_|___/ \s
-                """);
+                """;
+
+        System.out.println(util.backgroundColorText(linhaDecoracao, "blue", "gray"));
+        System.out.println(util.colorText(PLACARTEXT, "yellow"));
+        System.out.println(util.backgroundColorText(linhaDecoracao, "blue", "gray"));
+
+        System.out.println(" ");
 
         veiculosDaCorrida.sort((p1, p2) -> Integer.compare(p2.getVitorias(), p1.getVitorias()));
-
         for(int i = 1; i <= veiculosDaCorrida.size(); i++){
             System.out.printf("%d° - %s [%d vitórias] \n", i, veiculosDaCorrida.get(i-1).getNome(), veiculosDaCorrida.get(i-1).getVitorias());
         }
@@ -158,9 +159,8 @@ public class Main {
         System.out.println("_".repeat(10));
 
         // Espera pela interação do usuário para poder voltar ao menu
-        System.out.println("Aperte ENTER para voltar ao menu.");
+        System.out.println("\nAperte ENTER para voltar ao menu.");
         leia.nextLine(); leia.nextLine();
-        menu();
     }
 
 
@@ -190,6 +190,52 @@ public class Main {
         veiculosDaCorrida.add(new Train("esse tren"));
 
         menu();
+    }
+
+
+    public static void gerenciarVeiculo(){
+        limparTela.clean();
+        int userOption;
+
+        String linhaDecoracao = "/".repeat(80);
+        final String GERENVEICULOTEXT = """
+                ____    ____  _______  __    ______  __    __   __        ______        _______.
+                \\   \\  /   / |   ____||  |  /      ||  |  |  | |  |      /  __  \\      /       |
+                 \\   \\/   /  |  |__   |  | |  ,----'|  |  |  | |  |     |  |  |  |    |   (----`
+                  \\      /   |   __|  |  | |  |     |  |  |  | |  |     |  |  |  |     \\   \\   \s
+                   \\    /    |  |____ |  | |  `----.|  `--'  | |  `----.|  `--'  | .----)   |  \s
+                    \\__/     |_______||__|  \\______| \\______/  |_______| \\______/  |_______/   \s""";
+
+        System.out.println(util.backgroundColorText(linhaDecoracao, "gray", "purple"));
+        System.out.println(util.backgroundColorText(GERENVEICULOTEXT, "white", "black"));
+        System.out.println(util.backgroundColorText(linhaDecoracao, "gray", "purple"));
+
+        String[] opcoes = {"Adicionar novo veiculo", "remover veiculo", "renomear veiculo", "alterar o tipo de veículo", "voltar ao menu"};
+        criarMenu(opcoes);
+        userOption = leia.nextInt();
+
+        switch (userOption){
+            case 1:
+                break;
+            case 5:
+                menu();
+                break;
+            default:
+                gerenciarVeiculo();
+                break;
+        }
+
+        leia.nextLine(); leia.nextLine();
+    }
+
+    public static void criarMenu(String[] opcoes){
+        System.out.println(" ");
+
+        for(int i = 1; i <= opcoes.length; i++){
+            System.out.printf("[%d] - %s \n", i, opcoes[i-1]);
+        }
+
+        System.out.print("-> ");
     }
 
 }

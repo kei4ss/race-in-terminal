@@ -1,4 +1,4 @@
-import enfeites.Utilidades;
+import config.ColorConfig;
 import veiculos.Carro;
 import veiculos.Motocicleta;
 import veiculos.Train;
@@ -15,7 +15,7 @@ public class Main {
 
     static List<Veiculo> veiculosDaCorrida = new ArrayList<>();
     static Scanner leia = new Scanner(System.in);
-    static Utilidades util = new Utilidades();
+    static ColorConfig util = new ColorConfig();
 
     public static void main(String[] args) {
 

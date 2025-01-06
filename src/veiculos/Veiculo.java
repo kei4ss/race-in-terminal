@@ -1,7 +1,7 @@
 package veiculos;
 
 import java.util.Random;
-import enfeites.Utilidades;
+import config.ColorConfig;
 
 public class Veiculo {
     protected int distancia = 0;
@@ -9,7 +9,7 @@ public class Veiculo {
     protected Random gerador = new Random();
     protected int vitorias;
     protected final int VELOCIDADE = 5;
-    private Utilidades util = new Utilidades();
+    private ColorConfig util = new ColorConfig();
 
     public void desenhar(){};
 

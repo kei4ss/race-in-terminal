@@ -1,13 +1,14 @@
 package telas;
 
-import enfeites.Utilidades;
+import config.ColorConfig;
+import config.GeneralConfig;
 import veiculos.Veiculo;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    static Utilidades util = new Utilidades();
+    static ColorConfig color = new ColorConfig();
 
     static final String MENUTEXT = """
             .___  ___.  _______ .__   __.  __    __\s
@@ -20,16 +21,16 @@ public class Menu {
     public static  void menu(Scanner leia, List<Veiculo> veiculosDaCorrida){
         int userOption;
 
-        util.clean();
+        GeneralConfig.limparTela();
 
         // CRIAÇÃO DO CABEÇALHO
         String linhaDecoracao = "-".repeat(40);
-        System.out.println(util.colorText(linhaDecoracao, "yellow"));
-        System.out.println(util.colorText(MENUTEXT, "cyan"));
-        System.out.println(util.colorText(linhaDecoracao, "yellow"));
+        System.out.println(color.colorText(linhaDecoracao, "yellow"));
+        System.out.println(color.colorText(MENUTEXT, "cyan"));
+        System.out.println(color.colorText(linhaDecoracao, "yellow"));
 
         String[] opcoes = {"Começar partida", "Ver placar", "Gerenciar carros", "sair"};
-        util.criarMenu(opcoes);
+        GeneralConfig.criarMenu(opcoes);
         userOption = leia.nextInt();
 
         switch (userOption) {

@@ -1,9 +1,8 @@
-package enfeites;
+package config;
 
-import java.io.IOException;
 import java.util.Arrays;
 
-public class Utilidades {
+public class ColorConfig {
 
     private final String RESET = "\u001B[0m";
     private final String BLACK = "\u001B[30m";
@@ -31,7 +30,7 @@ public class Utilidades {
     private final String[] ALLBACKGROUNDCOlOR = {BLACK_BACKGROUND, RED_BACKGROUND, GREEN_BACKGROUND, YELLOW_BACKGROUND, BLUE_BACKGROUND, PURPLE_BACKGROUND, CYAN_BACKGROUND, WHITE_BACKGROUND, GRAY_BACKGROUND};
 
 
-    public Utilidades(){}
+    public ColorConfig(){}
 
     public String colorText(String text, String color){
         int index = procurarCor(color);
@@ -58,33 +57,5 @@ public class Utilidades {
         return -1;
     }
 
-    public void clean(){
-        String namesystem = System.getProperty("os.name");
-        if(namesystem.contains("Windows")){
-            try{
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            }catch(IOException | InterruptedException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        else{
-            for(int i=0; i<20; i++){System.out.println("\n\n\n");}
-        }
-    }
 
-    public void criarMenu(String[] opcoes){
-        System.out.println(" ");
-        for(int i = 1; i <= opcoes.length; i++){
-            System.out.printf("[%d] - %s \n", i, opcoes[i-1]);
-        }
-        System.out.print("-> ");
-    }
-
-    public void pause(int temp){
-        try {
-            Thread.sleep(temp * 1000L);
-        } catch (InterruptedException e) {
-            System.out.println("A pausa foi interrompida!");
-        }
-    }
 }

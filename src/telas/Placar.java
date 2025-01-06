@@ -1,14 +1,15 @@
 package telas;
 
+import config.GeneralConfig;
 import veiculos.Veiculo;
-import enfeites.Utilidades;
+import config.ColorConfig;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Placar {
 
-    static Utilidades util = new Utilidades();
+    static ColorConfig util = new ColorConfig();
     final static String PLACARTEXT = """
                  ____  _                            _     \s
                 |  _ \\| | __ _  ___ __ _ _ __    __| | ___\s
@@ -22,7 +23,7 @@ public class Placar {
                 """;
 
     public static void loadSccreen(Scanner leia, List<Veiculo> veiculosDaCorrida){
-        util.clean();
+        GeneralConfig.limparTela();
 
         String linhaDecoracao = "-".repeat(45);
 

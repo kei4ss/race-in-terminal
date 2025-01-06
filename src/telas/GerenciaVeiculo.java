@@ -2,14 +2,15 @@ package telas;
 
 import java.util.Scanner;
 
-import enfeites.Utilidades;
+import config.ColorConfig;
+import config.GeneralConfig;
 
 public class GerenciaVeiculo {
 
-    static Utilidades util = new Utilidades();
+    static ColorConfig util = new ColorConfig();
 
     public static void loadScreen(Scanner leia){
-        util.clean();
+        GeneralConfig.limparTela();
         int userOption;
 
         String linhaDecoracao = "/".repeat(80);
@@ -26,7 +27,7 @@ public class GerenciaVeiculo {
         System.out.println(util.backgroundColorText(linhaDecoracao, "gray", "purple"));
 
         String[] opcoes = {"Adicionar novo veiculo", "remover veiculo", "renomear veiculo", "alterar o tipo de veículo", "voltar ao menu"};
-        util.criarMenu(opcoes);
+        GeneralConfig.criarMenu(opcoes);
         userOption = leia.nextInt();
 
         switch (userOption){
@@ -37,8 +38,5 @@ public class GerenciaVeiculo {
             default:
                 break;
         }
-
-        leia.nextLine();
-        leia.nextLine();
     }
 }

@@ -1,7 +1,7 @@
 package telas;
 
+import config.GeneralConfig;
 import veiculos.Veiculo;
-import enfeites.Utilidades;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,13 +9,11 @@ import java.util.Scanner;
 
 public class Corrida {
 
-    static Utilidades util = new Utilidades();
-
     public static void runGame (Scanner leia, List<Veiculo> veiculosDaCorrida){
 
         // mostra o frame inicial e garante que todos os carros tenham sua posição igual a 0
         // essa garantia é feita pela função .reset()
-        util.clean();
+        GeneralConfig.limparTela();
         for(Veiculo car : veiculosDaCorrida){
             car.reset();
             car.desenhar();
@@ -23,8 +21,8 @@ public class Corrida {
 
         // Desenha a corrida e avança os carros
         for(int i = 0; i< 15; i++){
-            util.pause(1);
-            util.clean();
+            GeneralConfig.pause(1);
+            GeneralConfig.limparTela();
             for(Veiculo car : veiculosDaCorrida){
                 car.avancar();
                 car.desenhar();
